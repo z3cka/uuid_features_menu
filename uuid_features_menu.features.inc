@@ -19,7 +19,8 @@ function menu_uuid_links_features_export($data, &$export, $module_name) {
       // If this link is provided by a different module, add it as a dependency.
       if (isset($map[$identifier]) && $map[$identifier] != $module_name) {
         $export['dependencies'][$map[$identifier]] = $map[$identifier];
-      } else {
+      } 
+      else {
         $export['features']['menu_uuid_links'][$identifier] = $identifier;
       }
 
@@ -51,7 +52,7 @@ function menu_uuid_links_features_export_options() {
 }
 
 /**
- * Implementation of hook_features_export_render()
+ * Implementation of hook_features_export_render().
  */
 function menu_uuid_links_features_export_render($module, $data) {
   $code = array();
@@ -75,7 +76,7 @@ function menu_uuid_links_features_export_render($module, $data) {
       }
 
       $code[] = "  // Exported menu link: {$identifier}";
-      $code[] = "  \$menu_uuid_links['{$identifier}'] = ". features_var_export($link, '  ') .";";
+      $code[] = "  \$menu_uuid_links['{$identifier}'] = " . features_var_export($link, '  ') . ";";
       $translatables[] = $link['link_title'];
     }
   }
@@ -129,7 +130,8 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
             $ordered[$identifier] = 0;
             $all_links[$identifier] = $link;
             unset($unordered[$key]);
-          } else if (isset($ordered[$parent])) {
+          } 
+          elseif (isset($ordered[$parent])) {
             $ordered[$identifier] = $ordered[$parent] + 1;
             $all_links[$identifier] = $link;
             unset($unordered[$key]);
@@ -152,7 +154,8 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
       // Retrieve the plid for a parent link.
       if (!empty($link['parent_uuid']) && $parent = uuid_features_menu_link_load($link['parent_uuid'])) {
         $link['plid'] = $parent['mlid'];
-      } else {
+      } 
+      else {
         $link['plid'] = 0;
       }
       // Convert uuid paths to node paths.

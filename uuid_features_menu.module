@@ -110,10 +110,12 @@ function uuid_features_menu_link_load($uuid) {
 function uuid_features_menu_link_uuid($link) {
   if (!empty($link['uuid'])) {
     return $link['uuid'];
-  } 
+  }
   else {
     $uuid = db_query("SELECT uuid FROM {menu_links} WHERE mlid = :mlid", array(':mlid' => $link['mlid']))->fetchField();
-    if (!empty($uuid)) return $uuid;
+    if (!empty($uuid)) {
+      return $uuid;
+    }
   }
   return FALSE;
 }
@@ -130,7 +132,7 @@ function uuid_features_menu_encode_path($path) {
   }
   $router_item = $router[$router_path];
   $load_functions = unserialize($router_item['load_functions']);
-  foreach ((array)$load_functions as $arg => $load_function) {
+  foreach ((array) $load_functions as $arg => $load_function) {
     if (is_array($load_function)) {
       $keys = array_keys($load_function);
       $load_function = $keys[0];
@@ -161,7 +163,9 @@ function uuid_features_menu_encode_path($path) {
     }
   }
   $uuid_path = implode('/', $args);
-  if ($uuid_path == $path) return FALSE;
+  if ($uuid_path == $path) {
+    return FALSE;
+  }
   return $uuid_path;
 }
 
@@ -174,7 +178,7 @@ function uuid_features_menu_resolve_path($path) {
   $router_path = _menu_find_router_path($path);
   $router_item = $router[$router_path];
   $load_functions = unserialize($router_item['load_functions']);
-  foreach ((array)$load_functions as $arg => $load_function) {
+  foreach ((array) $load_functions as $arg => $load_function) {
     if (is_array($load_function)) {
       $keys = array_keys($load_function);
       $load_function = $keys[0];
@@ -189,6 +193,7 @@ function uuid_features_menu_resolve_path($path) {
           return FALSE;
         }
         break;
+
       case 'node_load':
         $nids = entity_get_id_by_uuid('node', array($args[$arg]));
         if (count($nids)) {
@@ -197,6 +202,7 @@ function uuid_features_menu_resolve_path($path) {
           return FALSE;
         }
         break;
+
       case 'user_load':
         $uids = entity_get_id_by_uuid('user', array($args[$arg]));
         if (count($uids)) {
@@ -205,6 +211,7 @@ function uuid_features_menu_resolve_path($path) {
           return FALSE;
         }
         break;
+
     }
   }
   return implode('/', $args);
