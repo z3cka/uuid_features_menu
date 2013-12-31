@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Features export callback.
+ */
 function menu_uuid_links_features_export($data, &$export, $module_name) {
   // Default hooks are provided by the feature module so we need to add
   // it as a dependency.
@@ -8,7 +11,7 @@ function menu_uuid_links_features_export($data, &$export, $module_name) {
   $export['dependencies']['uuid'] = 'uuid';
   $export['dependencies']['uuid_features_menu'] = 'uuid_features_menu';
 
-  // Collect a link to module map
+  // Collect a link to module map.
   $pipe = array();
   $map = features_get_default_map('menu_uuid_links', 'uuid');
   foreach ($data as $identifier) {
@@ -36,11 +39,14 @@ function menu_uuid_links_features_export($data, &$export, $module_name) {
   return $pipe;
 }
 
+/**
+ * Build a list of menu links to export.
+ */
 function menu_uuid_links_features_export_options() {
-  // Generate UUIDs for the menu links
+  // Generate UUIDs for the menu links.
   _uuid_features_menu_generate_uuids();
 
-  // Get a list of all the menu links
+  // Get a list of all the menu links.
   return _uuid_features_menu_get_links();
 }
 
@@ -55,7 +61,7 @@ function menu_uuid_links_features_export_render($module, $data) {
   $translatables = array();
   foreach ($data as $identifier) {
     if ($link = uuid_features_menu_link_load($identifier)) {
-      // Replace plid with a parent uuid
+      // Replace plid with a parent uuid.
       if (!empty($link['plid']) && $parent = menu_link_load($link['plid'])) {
         $link['parent_uuid'] = $parent['uuid'];
       }
@@ -149,7 +155,7 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
       } else {
         $link['plid'] = 0;
       }
-      // Convert uuid paths to node paths
+      // Convert uuid paths to node paths.
       if (!empty($link['uuid_path'])) {
       	if (!$link['link_path'] = uuid_features_menu_resolve_path($link['uuid_path'])) {
       	  drupal_set_message("Couldn't restore {$link['uuid']} as the uuid it points to does not exist on this site.");
