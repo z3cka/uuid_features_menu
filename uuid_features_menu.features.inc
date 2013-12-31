@@ -25,7 +25,7 @@ function menu_uuid_links_features_export($data, &$export, $module_name) {
 
       // If this module has a parent add that too.
       if ($link['plid'] != 0 && $parent = menu_link_load($link['plid'])) {
-      	$pipe['menu_uuid_links'][] = uuid_features_menu_link_uuid($parent);
+        $pipe['menu_uuid_links'][] = uuid_features_menu_link_uuid($parent);
       }
 
       // For now, exclude a variety of common menus from automatic export.
@@ -70,8 +70,8 @@ function menu_uuid_links_features_export_render($module, $data) {
 
       // If the menu path links to something that has a UUID use that instead.
       if ($uuid_path = uuid_features_menu_encode_path($link['link_path'])) {
-      	$link['uuid_path'] = $uuid_path;
-      	unset($link['link_path']);
+        $link['uuid_path'] = $uuid_path;
+        unset($link['link_path']);
       }
 
       $code[] = "  // Exported menu link: {$identifier}";
@@ -157,10 +157,10 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
       }
       // Convert uuid paths to node paths.
       if (!empty($link['uuid_path'])) {
-      	if (!$link['link_path'] = uuid_features_menu_resolve_path($link['uuid_path'])) {
-      	  drupal_set_message("Couldn't restore {$link['uuid']} as the uuid it points to does not exist on this site.");
+        if (!$link['link_path'] = uuid_features_menu_resolve_path($link['uuid_path'])) {
+          drupal_set_message("Couldn't restore {$link['uuid']} as the uuid it points to does not exist on this site.");
           continue;
-      	}
+        }
         unset($link['uuid_path']);
       }
       $mlid = menu_link_save($link);
