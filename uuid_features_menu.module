@@ -190,7 +190,7 @@ function uuid_features_menu_resolve_path($path) {
         $tids = entity_get_id_by_uuid('taxonomy_term', array($args[$arg]));
         if (count($tids)) {
           $args[$arg] = array_pop($tids);
-        } 
+        }
         else {
           return FALSE;
         }
@@ -200,7 +200,7 @@ function uuid_features_menu_resolve_path($path) {
         $nids = entity_get_id_by_uuid('node', array($args[$arg]));
         if (count($nids)) {
           $args[$arg] = array_pop($nids);
-        } 
+        }
         else {
           return FALSE;
         }
@@ -210,7 +210,7 @@ function uuid_features_menu_resolve_path($path) {
         $uids = entity_get_id_by_uuid('user', array($args[$arg]));
         if (count($uids)) {
           $args[$arg] = array_pop($uids);
-        } 
+        }
         else {
           return FALSE;
         }
@@ -251,7 +251,6 @@ function _uuid_features_menu_get_links() {
   // so if a menu appears on the page which contains items we can't see (i.e. a log out link)
   // they won't appear as options to export. Instead we reproduce the essential parts of the
   // function here.
-
   static $menu_links = array();
   if (!empty($menu_links)) {
     return $menu_links;
