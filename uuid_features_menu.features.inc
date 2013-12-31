@@ -19,7 +19,7 @@ function menu_uuid_links_features_export($data, &$export, $module_name) {
       // If this link is provided by a different module, add it as a dependency.
       if (isset($map[$identifier]) && $map[$identifier] != $module_name) {
         $export['dependencies'][$map[$identifier]] = $map[$identifier];
-      } 
+      }
       else {
         $export['features']['menu_uuid_links'][$identifier] = $identifier;
       }
@@ -130,7 +130,7 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
             $ordered[$identifier] = 0;
             $all_links[$identifier] = $link;
             unset($unordered[$key]);
-          } 
+          }
           elseif (isset($ordered[$parent])) {
             $ordered[$identifier] = $ordered[$parent] + 1;
             $all_links[$identifier] = $link;
@@ -154,7 +154,7 @@ function menu_uuid_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
       // Retrieve the plid for a parent link.
       if (!empty($link['parent_uuid']) && $parent = uuid_features_menu_link_load($link['parent_uuid'])) {
         $link['plid'] = $parent['mlid'];
-      } 
+      }
       else {
         $link['plid'] = 0;
       }
